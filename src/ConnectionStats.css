@@ -1,0 +1,27 @@
+.connection-stats-container {
+  position: absolute;
+  bottom: 0;
+  padding-top: 0.3em;
+  padding-bottom: 1em;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: rgb(47,50,57);
+  font-weight: bold;
+  margin-top: 10em;
+}
+
+.connection-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.connection-stats-container input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-weight: bold;
+  text-align: center;
+}
