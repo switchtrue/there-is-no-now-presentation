@@ -36,6 +36,14 @@ export default class ConnectionStats extends Component {
               onChange={this.props.onDataFrequencyChange}
               />
             <ConnectionStat
+              editable
+              visible={this.props.config.clockSkew}
+              title="Clock drift (secs)"
+              value={this.props.clockSkew}
+              color="rgb(44, 123, 218)"
+              onChange={this.props.onClockSkewChange}
+              />
+            <ConnectionStat
               visible={this.props.config.connectionCount}
               title="Connections"
               value={server.connectionCount}

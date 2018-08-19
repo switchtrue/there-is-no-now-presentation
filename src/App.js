@@ -30,6 +30,7 @@ class App extends Component {
       serverState: {},
       connectionStatsVisible: false,
       dataFrequency: 1,
+      clockSkew: 0,
     }
   }
 
@@ -45,6 +46,7 @@ class App extends Component {
     setInterval(this.refreshState, 1000);
 
     this.setDataFrequency(1);
+    this.setClockSkew(0);
   };
 
   refreshState = () => {
@@ -74,6 +76,7 @@ class App extends Component {
       connectionStatsVisible: false,
       connectionStatsConfig: {
         dataFrequency: false,
+        clockSkew: false,
         connectionCount: false,
         requestsPerSecond: false,
       }
@@ -82,6 +85,13 @@ class App extends Component {
 
   setDataFrequency = (frequency) => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/api/set-data-frequency?frequency=${frequency}`)
+      .catch(err => {
+        console.log(`Fetch Error: ${err}`);
+      });
+  };
+
+  setClockSkew = (skew) => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/set-clock-skew?skew=${skew}`)
       .catch(err => {
         console.log(`Fetch Error: ${err}`);
       });
@@ -97,6 +107,16 @@ class App extends Component {
     });
   };
 
+  handleClockSkewChange = (e) => {
+    if (e.target.value && e.target.value >= 0) {
+      this.setClockSkew(e.target.value);
+    }
+
+    this.setState({
+      clockSkew: e.target.value,
+    });
+  };
+
   render() {
     return (
       <ServerContext.Provider value={this.state.serverState}>
@@ -105,7 +125,7 @@ class App extends Component {
             hideConnectionStats={this.hideConnectionStats}
             />
           <TitleSlideAppInstructions
-            showConnectionStats={() => this.showConnectionStats({dataFrequency: false, connectionCount: true, requestsPerSecond: false})}
+            showConnectionStats={() => this.showConnectionStats({dataFrequency: false, clockSkew: false, connectionCount: true, requestsPerSecond: false})}
             />
           <TopicsSlide
             hideConnectionStats={this.hideConnectionStats}
@@ -114,7 +134,7 @@ class App extends Component {
             hideConnectionStats={this.hideConnectionStats}
             />
           <NoNowDemoSlide
-            showConnectionStats={() => this.showConnectionStats({dataFrequency: true, connectionCount: true, requestsPerSecond: false})}
+            showConnectionStats={() => this.showConnectionStats({dataFrequency: true, clockSkew: true, connectionCount: true, requestsPerSecond: false})}
             />
           <NoNowSummarySlide
             hideConnectionStats={this.hideConnectionStats}
@@ -123,7 +143,7 @@ class App extends Component {
             hideConnectionStats={this.hideConnectionStats}
             />
           <OutageDemoSlide
-            showConnectionStats={() => this.showConnectionStats({dataFrequency: false, connectionCount: true, requestsPerSecond: true})}
+            showConnectionStats={() => this.showConnectionStats({dataFrequency: true, clockSkew: true, connectionCount: true, requestsPerSecond: false})}
             />
           <OutageSummarySlide
             hideConnectionStats={this.hideConnectionStats}
@@ -140,7 +160,9 @@ class App extends Component {
           ? <ConnectionsStats
               config={this.state.connectionStatsConfig}
               dataFrequency={this.state.dataFrequency}
+              clockSkew={this.state.clockSkew}
               onDataFrequencyChange={this.handleDataFrequencyChange}
+              onClockSkewChange={this.handleClockSkewChange}
               />
           : null}
       </ServerContext.Provider>

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Heading, Slide, Text } from "spectacle";
 import List from "spectacle/es/components/list";
 import ListItem from "spectacle/es/components/list-item";
+import { ServerContext } from "./App";
 
 export class OutageProblemSlide extends Component {
   componentDidMount = () => {
@@ -21,15 +22,45 @@ export class OutageProblemSlide extends Component {
 }
 
 export class OutageDemoSlide extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount = () => {
     this.props.showConnectionStats();
   };
 
+  start = () => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/outage/create`)
+      .catch(err => {
+        console.log(`Fetch Error: ${err}`);
+      });
+  };
+
+  stop = () => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/outage/fix`)
+      .catch(err => {
+        console.log(`Fetch Error: ${err}`);
+      });
+  };
+
   render() {
     return (
-      <Slide transition={["fade"]} bgColor="primary">
-        <Heading size={6} textColor="secondary" caps>Demo</Heading>
-      </Slide>
+      <ServerContext.Consumer>
+        {server =>
+          <Slide transition={["fade"]} bgColor="secondary" textColor="quaternary">
+            <div>
+              <div className="button-container">
+                {server.simulatedOutage
+                  ? <button onClick={this.stop}>Fix Outage</button>
+                  : <button onClick={this.start}>Create Outage</button>}
+              </div>
+              <div>
+                <Heading size={6} textColor="quaternary" caps>Demo</Heading>
+              </div>
+            </div>
+          </Slide>}
+      </ServerContext.Consumer>
     );
   }
 }

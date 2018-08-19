@@ -27,8 +27,8 @@
   left: 0;
   width: 8px;
   height: 8px;
-  border-left: 8px solid rgb(47, 50, 57);
-  border-top: 8px solid rgb(47, 50, 57);
+  border-left: 8px solid #1F2022;
+  border-top: 8px solid #1F2022;
   border-right: 8px solid #03A9FC;
   border-bottom: 8px solid #03A9FC;
   box-sizing: border-box;
