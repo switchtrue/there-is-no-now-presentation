@@ -7,6 +7,7 @@ import { TitleSlide, TitleSlideAppInstructions } from "./TitleSlide";
 import TopicsSlide from "./TopicsSlide";
 import { NoNowProblemSlide, NoNowDemoSlide, NoNowSummarySlide } from "./NoNowSlides";
 import { OutageProblemSlide, OutageDemoSlide, OutageSummarySlide } from "./OutageSlides";
+import CrosshairIntroSlide from "./CrosshairIntroSlide"
 import "normalize.css";
 import "./App.css"
 
@@ -34,8 +35,9 @@ class App extends Component {
     }
   }
 
+  socket = io(`${process.env.REACT_APP_SERVER_URL}/presentation`);
+
   componentDidMount = () => {
-    this.socket = io(`${process.env.REACT_APP_SERVER_URL}/presentation`);
     this.socket.on('connect', function(){});
     this.socket.on('disconnect', function(){});
 
@@ -108,7 +110,7 @@ class App extends Component {
   };
 
   handleClockSkewChange = (e) => {
-    if (e.target.value && e.target.value >= 0) {
+    if (e.target.value !== undefined && e.target.value >= 0) {
       this.setClockSkew(e.target.value);
     }
 
@@ -126,6 +128,10 @@ class App extends Component {
             />
           <TitleSlideAppInstructions
             showConnectionStats={() => this.showConnectionStats({dataFrequency: false, clockSkew: false, connectionCount: true, requestsPerSecond: false})}
+            />
+          <CrosshairIntroSlide
+            showConnectionStats={() => this.showConnectionStats({dataFrequency: true, clockSkew: false, connectionCount: true, requestsPerSecond: false})}
+            socket={this.socket}
             />
           <TopicsSlide
             hideConnectionStats={this.hideConnectionStats}

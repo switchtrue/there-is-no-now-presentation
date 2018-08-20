@@ -22,11 +22,23 @@ const ConnectionStat = ({visible, title, value, color, editable, onChange}) => (
 );
 
 export default class ConnectionStats extends Component {
+  reset = () => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/reset`)
+      .catch(err => {
+        console.log(`Fetch Error: ${err}`);
+      });
+    this.props.onDataFrequencyChange({target: {value: 1}});
+    this.props.onClockSkewChange({target: {value: 0}});
+  };
+
   render() {
     return (
       <ServerContext.Consumer>
         {server =>
           <div className="connection-stats-container">
+            <button onClick={this.reset}>
+              Reset
+            </button>
             <ConnectionStat
               editable
               visible={this.props.config.dataFrequency}

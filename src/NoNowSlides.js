@@ -10,7 +10,7 @@ export class NoNowProblemSlide extends Component {
   render() {
     return (
       <Slide transition={["fade"]} bgColor="secondary" textColor="quaternary">
-        <Heading size={3} textColor="quaternary" caps>The Problem</Heading>
+        <Heading size={3} textColor="quaternary" caps>Problem One</Heading>
         <Text size={1} textColor="quaternary">
           You want to view real-time energy data as you control assets on the grid
         </Text>

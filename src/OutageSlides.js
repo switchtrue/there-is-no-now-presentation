@@ -13,7 +13,7 @@ export class OutageProblemSlide extends Component {
   render() {
     return (
       <Slide transition={["fade"]} bgColor="secondary" textColor="quaternary">
-        <Heading size={3} textColor="quaternary" caps>The Problem</Heading>
+        <Heading size={3} textColor="quaternary" caps>Problem Two</Heading>
         <Text size={1} textColor="quaternary">
           During an outage you want to keep data loss to a minimum
         </Text>
