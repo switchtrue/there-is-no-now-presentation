@@ -5,7 +5,7 @@ import ConnectionsStats from "./ConnectionStats";
 import createTheme from "spectacle/lib/themes/default";
 import { TitleSlide, TitleSlideAppInstructions } from "./TitleSlide";
 import TopicsSlide from "./TopicsSlide";
-import { NoNowProblemSlide, NoNowDemoSlide, NoNowSummarySlide } from "./NoNowSlides";
+import { NoNowProblemSlide, NoNowDemoSlide, NoNowDemoTwoSlide, NoNowSummarySlide } from "./NoNowSlides";
 import { OutageProblemSlide, OutageDemoSlide, OutageSummarySlide } from "./OutageSlides";
 import CrosshairIntroSlide from "./CrosshairIntroSlide"
 import "normalize.css";
@@ -142,6 +142,9 @@ class App extends Component {
           <NoNowDemoSlide
             showConnectionStats={() => this.showConnectionStats({dataFrequency: true, clockSkew: true, connectionCount: true, requestsPerSecond: false})}
             />
+          <NoNowDemoTwoSlide
+            showConnectionStats={() => this.showConnectionStats({dataFrequency: true, clockSkew: true, connectionCount: true, requestsPerSecond: false})}
+          />
           <NoNowSummarySlide
             hideConnectionStats={this.hideConnectionStats}
             />
