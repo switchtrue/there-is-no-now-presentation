@@ -5,9 +5,11 @@ import ConnectionsStats from "./ConnectionStats";
 import createTheme from "spectacle/lib/themes/default";
 import { TitleSlide, TitleSlideAppInstructions } from "./TitleSlide";
 import TopicsSlide from "./TopicsSlide";
-import { NoNowProblemSlide, NoNowDemoSlide, NoNowDemoTwoSlide, NoNowSummarySlide } from "./NoNowSlides";
-import { OutageProblemSlide, OutageDemoSlide, OutageSummarySlide } from "./OutageSlides";
+import TechStackSlide from "./TechStackSlide";
+import { NoNowProblemSlide, NoNowDemoSlide, NoNowDemoTwoSlide, NoNowSolutionOne, NoNowSolutionTwo, NoNowSolutionThree, NoNowDemoThreeSlide, NoNowSummarySlide } from "./NoNowSlides";
+import { OutageProblemSlide, OutageProblemTwoSlide, OutageDemoSlide, OutageSummarySlide } from "./OutageSlides";
 import CrosshairIntroSlide from "./CrosshairIntroSlide"
+import SummarySlide from "./SummarySlide";
 import "normalize.css";
 import "./App.css"
 
@@ -133,7 +135,7 @@ class App extends Component {
             showConnectionStats={() => this.showConnectionStats({dataFrequency: true, clockSkew: false, connectionCount: true, requestsPerSecond: false})}
             socket={this.socket}
             />
-          <TopicsSlide
+          <TechStackSlide
             hideConnectionStats={this.hideConnectionStats}
             />
           <NoNowProblemSlide
@@ -145,24 +147,40 @@ class App extends Component {
           <NoNowDemoTwoSlide
             showConnectionStats={() => this.showConnectionStats({dataFrequency: true, clockSkew: true, connectionCount: true, requestsPerSecond: false})}
           />
-          <NoNowSummarySlide
+          <NoNowSolutionOne
             hideConnectionStats={this.hideConnectionStats}
             />
+          <NoNowSolutionTwo
+            hideConnectionStats={this.hideConnectionStats}
+            />
+          <NoNowSolutionThree
+            hideConnectionStats={this.hideConnectionStats}
+            />
+          <NoNowDemoThreeSlide
+            showConnectionStats={() => this.showConnectionStats({dataFrequency: true, clockSkew: true, connectionCount: true, requestsPerSecond: false})}
+            />
+          {/*<NoNowSummarySlide*/}
+            {/*hideConnectionStats={this.hideConnectionStats}*/}
+            {/*/>*/}
           <OutageProblemSlide
             hideConnectionStats={this.hideConnectionStats}
             />
+          {/*<OutageProblemTwoSlide*/}
+            {/*hideConnectionStats={this.hideConnectionStats}*/}
+          {/*/>*/}
           <OutageDemoSlide
             showConnectionStats={() => this.showConnectionStats({dataFrequency: true, clockSkew: true, connectionCount: true, requestsPerSecond: false})}
             />
-          <OutageSummarySlide
+          {/*<OutageSummarySlide*/}
+            {/*hideConnectionStats={this.hideConnectionStats}*/}
+            {/*/>*/}
+          <SummarySlide
             hideConnectionStats={this.hideConnectionStats}
             />
-
-          <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
-            <BlockQuote>
-              <Quote>Example Quote</Quote>
-              <Cite>Author</Cite>
-            </BlockQuote>
+          <Slide transition={["fade"]} bgColor="tertiary">
+            <Heading size={3} textColor="primary">
+              Questions?!
+            </Heading>
           </Slide>
         </Deck>
         {this.state.connectionStatsVisible

@@ -22,9 +22,33 @@ export class OutageProblemSlide extends Component {
   }
 }
 
+// export class OutageProblemTwoSlide extends Component {
+//   componentDidMount = () => {
+//     this.props.hideConnectionStats();
+//   };
+//
+//   render() {
+//     return (
+//       <Slide transition={["none"]} bgColor="secondary" textColor="quaternary">
+//         <Heading size={3} textColor="quaternary" caps>Problem Two</Heading>
+//         <Text size={1} textColor="quaternary">
+//           During an outage you want to keep data loss to a minimum
+//         </Text>
+//         <Text transition={['fade']} size={1} textColor="quaternary">
+//           ...But don't DDoS yourself
+//         </Text>
+//       </Slide>
+//     );
+//   }
+// }
+
 export class OutageDemoSlide extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      strategy: "immediate",
+    }
   }
 
   componentDidMount = () => {
@@ -52,6 +76,16 @@ export class OutageDemoSlide extends Component {
       });
   };
 
+  handleOnStrategyChange = (e) => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/outage/strategy?strategy=${e.target.value}`)
+      .catch(err => {
+        console.log(`Fetch Error: ${err}`);
+      });
+    this.setState({
+      strategy: e.target.value,
+    });
+  };
+
   render() {
     return (
       <ServerContext.Consumer>
@@ -71,6 +105,7 @@ export class OutageDemoSlide extends Component {
                 <Text
                   style={{
                     marginTop: "1em",
+                    width: "6em",
                   }}
                   textColor="quaternary"
                   >
@@ -96,8 +131,28 @@ export class OutageDemoSlide extends Component {
                     Max. Requests per Second
                   </Heading>
                 </div>
-
+                <div
+                  style={{
+                    marginTop: "2em",
+                    color: "#888",
+                  }}>
+                  Strategy:
+                  <select
+                    style={{
+                      backgroundColor: "transparent",
+                      color: "#888",
+                      border: "none",
+                      outline: "none",
+                    }}
+                    onChange={this.handleOnStrategyChange}
+                    value={this.state.strategy}
+                    >
+                    <option value="immediate">Immediate</option>
+                    <option value="exponential-backoff" selected="selected">Exponential Back-Off</option>
+                  </select>
+                </div>
               </div>
+
             </div>
           </Slide>}
       </ServerContext.Consumer>

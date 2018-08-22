@@ -8,10 +8,7 @@ const HeadingContent = () => (
       There is no "now"
     </Heading>
     <Heading size={1} fit caps lineHeight={1} textColor="secondary">
-      Sensor data's the worst
-    </Heading>
-    <Heading size={2} fit caps lineHeight={1} textColor="secondary">
-      And other tales...
+      And Sensor data's the worst
     </Heading>
   </React.Fragment>
 );
